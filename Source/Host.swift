@@ -224,6 +224,7 @@ struct SlotSelection: Identifiable {
 struct ContentView: View {
     @ObservedObject var store: KeepNotesStore
     @State private var editing: SlotSelection?
+    @State private var viewing: SlotSelection?
     @State private var serverStarted = false
 
     var body: some View {
@@ -260,6 +261,11 @@ struct ContentView: View {
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
+                    if note != nil {
+                        Button("View") {
+                            viewing = SlotSelection(slot: slot)
+                        }
+                    }
                     if let note, let url = URL(string: note.url) {
                         Button("Keep") { NSWorkspace.shared.open(url) }
                     }
@@ -274,7 +280,7 @@ struct ContentView: View {
             }
 
             HStack {
-                Text("Control-click the desktop → Edit Widgets → Keep Widgets. Use “Edit Widget…” to change the slot.")
+                Text("Click a widget to open its full, selectable text. Control-click it and choose “Edit Widget…” to change the slot.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
@@ -287,6 +293,21 @@ struct ContentView: View {
         .frame(minWidth: 780, minHeight: 650)
         .sheet(item: $editing) { selection in
             SlotEditor(store: store, slot: selection.slot)
+        }
+        .sheet(item: $viewing) { selection in
+            if let note = store.note(in: selection.slot) {
+                NoteDetailView(note: note)
+            }
+        }
+        .onOpenURL { url in
+            guard url.scheme == "keepwidgets",
+                  url.host == "note",
+                  let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                  let slotValue = components.queryItems?.first(where: { $0.name == "slot" })?.value,
+                  let slot = Int(slotValue),
+                  store.note(in: slot) != nil else { return }
+            viewing = SlotSelection(slot: slot)
+            NSApp.activate(ignoringOtherApps: true)
         }
         .onAppear {
             guard !serverStarted else { return }
@@ -305,6 +326,59 @@ struct ContentView: View {
         guard let resources = Bundle.main.resourceURL else { return }
         let manifest = resources.appendingPathComponent("Brave Extension/manifest.json")
         NSWorkspace.shared.activateFileViewerSelecting([manifest])
+    }
+}
+
+struct NoteDetailView: View {
+    let note: KeepNote
+    @Environment(\.dismiss) private var dismiss
+    @State private var copied = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(alignment: .firstTextBaseline, spacing: 12) {
+                Text(note.title)
+                    .font(.title2.bold())
+                    .textSelection(.enabled)
+                Spacer()
+                Text("Slot \(note.slot)")
+                    .font(.caption.bold().monospacedDigit())
+                    .padding(.horizontal, 9)
+                    .padding(.vertical, 5)
+                    .background(Capsule().fill(Color(hex: note.color).opacity(0.35)))
+            }
+
+            ScrollView {
+                Text(note.body.isEmpty ? "Empty note" : note.body)
+                    .font(.body)
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .padding(14)
+            }
+            .frame(minHeight: 300)
+            .background(Color.secondary.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.2)))
+
+            HStack {
+                Text("Updated \(note.updatedAt.formatted(date: .abbreviated, time: .shortened))")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Button(copied ? "Copied" : "Copy Description") {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(note.body, forType: .string)
+                    copied = true
+                }
+                .disabled(note.body.isEmpty)
+                if let url = URL(string: note.url) {
+                    Button("Open in Google Keep") { NSWorkspace.shared.open(url) }
+                }
+                Button("Close") { dismiss() }
+                    .keyboardShortcut(.cancelAction)
+            }
+        }
+        .padding(20)
+        .frame(minWidth: 640, minHeight: 460)
     }
 }
 

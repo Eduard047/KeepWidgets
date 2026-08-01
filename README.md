@@ -9,6 +9,7 @@ Native WidgetKit widgets for Google Keep notes. Add as many copies as you need t
 - Native small, medium, and large macOS widgets
 - 12 independent note slots
 - Manual note editing in the macOS app
+- Full selectable note view with one-click description copying
 - One-click import from an open Google Keep note in Brave
 - Local-only storage with no third-party server
 
@@ -17,8 +18,9 @@ Native WidgetKit widgets for Google Keep notes. Add as many copies as you need t
 1. Launch `Keep Widgets.app` and fill the slots manually, or import notes from Google Keep with the Brave extension.
 2. Control-click an empty area of the desktop and choose **Edit Widgets…**.
 3. Select **Keep Widgets**, then drag a small, medium, or large widget onto the desktop.
-4. To display a different note, Control-click the widget, choose **Edit “Google Keep Note”…**, and select a slot.
-5. Repeat for every note you want to keep visible.
+4. Click a widget to open the complete note in Keep Widgets, select its text, copy the description, or open the original in Google Keep.
+5. To display a different note, Control-click the widget, choose **Edit “Google Keep Note”…**, and select a slot.
+6. Repeat for every note you want to keep visible.
 
 ## Import from Google Keep in Brave
 

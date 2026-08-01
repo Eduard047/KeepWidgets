@@ -190,8 +190,12 @@ struct KeepWidgetView: View {
     }
 
     private var widgetURL: URL? {
-        guard let raw = entry.note?.url, let url = URL(string: raw), url.host == "keep.google.com" else { return nil }
-        return url
+        guard entry.note != nil else { return nil }
+        var components = URLComponents()
+        components.scheme = "keepwidgets"
+        components.host = "note"
+        components.queryItems = [URLQueryItem(name: "slot", value: String(entry.slot))]
+        return components.url
     }
 }
 
