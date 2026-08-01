@@ -3,10 +3,16 @@
   window.__keepWidgetsImporterInstalled = true;
 
   const wordsToDrop = new Set([
-    "Закріпити нотатку", "Відкріпити нотатку", "Нагадати мені", "Співавтор",
-    "Додати зображення", "Архівувати", "Більше", "Закрити", "Назад",
-    "Закрепить заметку", "Открепить заметку", "Напомнить", "Соавторы",
-    "Добавить изображение", "Архивировать", "Ещё", "Закрыть",
+    "\u0417\u0430\u043a\u0440\u0456\u043f\u0438\u0442\u0438 \u043d\u043e\u0442\u0430\u0442\u043a\u0443",
+    "\u0412\u0456\u0434\u043a\u0440\u0456\u043f\u0438\u0442\u0438 \u043d\u043e\u0442\u0430\u0442\u043a\u0443",
+    "\u041d\u0430\u0433\u0430\u0434\u0430\u0442\u0438 \u043c\u0435\u043d\u0456", "\u0421\u043f\u0456\u0432\u0430\u0432\u0442\u043e\u0440",
+    "\u0414\u043e\u0434\u0430\u0442\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f", "\u0410\u0440\u0445\u0456\u0432\u0443\u0432\u0430\u0442\u0438",
+    "\u0411\u0456\u043b\u044c\u0448\u0435", "\u0417\u0430\u043a\u0440\u0438\u0442\u0438", "\u041d\u0430\u0437\u0430\u0434",
+    "\u0417\u0430\u043a\u0440\u0435\u043f\u0438\u0442\u044c \u0437\u0430\u043c\u0435\u0442\u043a\u0443",
+    "\u041e\u0442\u043a\u0440\u0435\u043f\u0438\u0442\u044c \u0437\u0430\u043c\u0435\u0442\u043a\u0443",
+    "\u041d\u0430\u043f\u043e\u043c\u043d\u0438\u0442\u044c", "\u0421\u043e\u0430\u0432\u0442\u043e\u0440\u044b",
+    "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", "\u0410\u0440\u0445\u0438\u0432\u0438\u0440\u043e\u0432\u0430\u0442\u044c",
+    "\u0415\u0449\u0451", "\u0417\u0430\u043a\u0440\u044b\u0442\u044c",
     "Pin note", "Unpin note", "Remind me", "Collaborator", "Add image",
     "Archive", "More", "Close"
   ]);
@@ -32,12 +38,12 @@
       #toast.error{background:#fce8e6;color:#c5221f}
     </style>
     <div id="panel">
-      <h3>Добавить как виджет</h3>
-      <p>Откройте заметку и выберите номер плитки на рабочем столе.</p>
+      <h3>Add as a widget</h3>
+      <p>Open a note and choose a desktop widget slot.</p>
       <div id="slots"></div>
       <div id="toast"></div>
     </div>
-    <button id="launch" type="button">▣ На рабочий стол</button>
+    <button id="launch" type="button">▣ Add to Desktop</button>
   `;
   document.documentElement.appendChild(host);
 
@@ -116,8 +122,8 @@
       }))
       .filter(item => item.text);
 
-    const titleWords = ["title", "назва", "название", "заголов"];
-    const bodyWords = ["note", "приміт", "нотат", "замет", "текст"];
+    const titleWords = ["title", "\u043d\u0430\u0437\u0432\u0430", "\u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", "\u0437\u0430\u0433\u043e\u043b\u043e\u0432"];
+    const bodyWords = ["note", "\u043f\u0440\u0438\u043c\u0456\u0442", "\u043d\u043e\u0442\u0430\u0442", "\u0437\u0430\u043c\u0435\u0442", "\u0442\u0435\u043a\u0441\u0442"];
     let titleItem = editables.find(item => titleWords.some(word => item.label.includes(word)));
     let bodyItem = editables.find(item => bodyWords.some(word => item.label.includes(word)) && item !== titleItem);
 
@@ -134,7 +140,7 @@
       })
       .filter(Boolean);
 
-    let title = titleItem?.text || "Без названия";
+    let title = titleItem?.text || "Untitled";
     let body = checkedRows.length ? checkedRows.join("\n") : (bodyItem?.text || "");
 
     if (!body) {
@@ -171,7 +177,7 @@
   function importCurrentNote(slot) {
     const noteRoot = findOpenNote();
     if (!noteRoot) {
-      showToast("Сначала откройте нужную заметку Keep.", true);
+      showToast("Open the Google Keep note you want to import first.", true);
       return;
     }
 
@@ -181,11 +187,11 @@
       payload: { slot, ...note }
     }, response => {
       if (chrome.runtime.lastError) {
-        showToast("Не удалось связаться с расширением Brave.", true);
+        showToast("Could not contact the Brave extension.", true);
       } else if (!response?.ok) {
-        showToast("Запустите приложение Keep Widgets на Mac.", true);
+        showToast("Start the Keep Widgets app on your Mac.", true);
       } else {
-        showToast(`Готово: заметка отправлена в виджет Keep ${slot}.`);
+        showToast(`Done: note sent to Keep widget slot ${slot}.`);
         setTimeout(() => panel.classList.remove("open"), 1600);
       }
     });

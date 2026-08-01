@@ -32,7 +32,7 @@ struct ImportPayload: Codable, Sendable {
 @MainActor
 final class KeepNotesStore: ObservableObject {
     @Published private(set) var notes: [KeepNote] = []
-    @Published var lastImportMessage = "Готов к импорту из Google Keep"
+    @Published var lastImportMessage = "Ready to import from Google Keep"
 
     let fileURL: URL
 
@@ -71,7 +71,7 @@ final class KeepNotesStore: ObservableObject {
 
         let note = KeepNote(
             slot: safeSlot,
-            title: safeTitle.isEmpty ? "Без названия" : safeTitle,
+            title: safeTitle.isEmpty ? "Untitled" : safeTitle,
             body: safeBody,
             url: safeURL,
             color: safeColor,
@@ -81,7 +81,7 @@ final class KeepNotesStore: ObservableObject {
         notes.append(note)
         notes.sort { $0.slot < $1.slot }
         save()
-        lastImportMessage = "Слот \(safeSlot) обновлён: \(note.title)"
+        lastImportMessage = "Slot \(safeSlot) updated: \(note.title)"
     }
 
     func saveManual(slot: Int, title: String, body: String, url: String, color: String) {
@@ -91,7 +91,7 @@ final class KeepNotesStore: ObservableObject {
     func clear(slot: Int) {
         notes.removeAll { $0.slot == slot }
         save()
-        lastImportMessage = "Слот \(slot) очищен"
+        lastImportMessage = "Slot \(slot) cleared"
     }
 
     private func load() {
@@ -234,12 +234,12 @@ struct ContentView: View {
                     .foregroundStyle(.yellow)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Keep Widgets").font(.title.bold())
-                    Text("Нативные виджеты macOS: добавляйте копии и выбирайте для каждой слот 1–12")
+                    Text("Native macOS widgets: add copies and assign slot 1–12 to each")
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Button("Открыть Keep") { openKeep() }
-                Button("Папка расширения Brave") { revealExtension() }
+                Button("Open Keep") { openKeep() }
+                Button("Brave Extension Folder") { revealExtension() }
             }
 
             Label(store.lastImportMessage, systemImage: "checkmark.circle.fill")
@@ -253,9 +253,9 @@ struct ContentView: View {
                         .frame(width: 28, height: 28)
                         .background(Circle().fill(note.map { Color(hex: $0.color) } ?? Color.secondary.opacity(0.15)))
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(note?.title ?? "Свободный слот")
+                        Text(note?.title ?? "Available slot")
                             .fontWeight(note == nil ? .regular : .semibold)
-                        Text(note?.body.replacingOccurrences(of: "\n", with: " ") ?? "Добавьте заметку вручную или кнопкой внутри Google Keep")
+                        Text(note?.body.replacingOccurrences(of: "\n", with: " ") ?? "Add a note manually or use the button inside Google Keep")
                             .lineLimit(1)
                             .foregroundStyle(.secondary)
                     }
@@ -263,22 +263,22 @@ struct ContentView: View {
                     if let note, let url = URL(string: note.url) {
                         Button("Keep") { NSWorkspace.shared.open(url) }
                     }
-                    Button(note == nil ? "Заполнить" : "Изменить") {
+                    Button(note == nil ? "Add" : "Edit") {
                         editing = SlotSelection(slot: slot)
                     }
                     if note != nil {
-                        Button("Очистить", role: .destructive) { store.clear(slot: slot) }
+                        Button("Clear", role: .destructive) { store.clear(slot: slot) }
                     }
                 }
                 .padding(.vertical, 3)
             }
 
             HStack {
-                Text("Control‑клик по рабочему столу → Изменить виджеты → Keep Widgets. Слот меняется через «Изменить виджет…».")
+                Text("Control-click the desktop → Edit Widgets → Keep Widgets. Use “Edit Widget…” to change the slot.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text("Локальный импорт: 127.0.0.1:43821")
+                Text("Local import: 127.0.0.1:43821")
                     .font(.caption.monospaced())
                     .foregroundStyle(.secondary)
             }
@@ -319,20 +319,20 @@ struct SlotEditor: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Виджет Keep \(slot)").font(.title2.bold())
-            TextField("Название", text: $title)
+            Text("Keep Widget \(slot)").font(.title2.bold())
+            TextField("Title", text: $title)
             TextEditor(text: $bodyText)
                 .font(.body)
                 .frame(minHeight: 220)
                 .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.secondary.opacity(0.25)))
-            TextField("Ссылка на заметку Keep", text: $url)
+            TextField("Google Keep note link", text: $url)
             HStack {
-                Text("Цвет")
+                Text("Color")
                 TextField("#FFF1A8", text: $color).frame(width: 110)
                 Circle().fill(Color(hex: color)).frame(width: 22, height: 22)
                 Spacer()
-                Button("Отмена") { dismiss() }
-                Button("Сохранить") {
+                Button("Cancel") { dismiss() }
+                Button("Save") {
                     store.saveManual(slot: slot, title: title, body: bodyText, url: url, color: color)
                     dismiss()
                 }

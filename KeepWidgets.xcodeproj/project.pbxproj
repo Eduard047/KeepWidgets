@@ -122,9 +122,9 @@
 				};
 			};
 			buildConfigurationList = AA0000000000000000000003 /* Build configuration list for PBXProject "KeepWidgets" */;
-			developmentRegion = ru;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (Base, ru, en, );
+			knownRegions = (Base, en, );
 			mainGroup = A80000000000000000000001;
 			productRefGroup = A80000000000000000000003 /* Products */;
 			projectDirPath = "";

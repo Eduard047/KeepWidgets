@@ -27,19 +27,19 @@ struct KeepWidgetEntry: TimelineEntry {
 enum KeepSlot: Int, AppEnum {
     case one = 1, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve
 
-    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Слот Keep")
+    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Keep Slot")
     static var caseDisplayRepresentations: [KeepSlot: DisplayRepresentation] = [
-        .one: "Слот 1", .two: "Слот 2", .three: "Слот 3", .four: "Слот 4",
-        .five: "Слот 5", .six: "Слот 6", .seven: "Слот 7", .eight: "Слот 8",
-        .nine: "Слот 9", .ten: "Слот 10", .eleven: "Слот 11", .twelve: "Слот 12"
+        .one: "Slot 1", .two: "Slot 2", .three: "Slot 3", .four: "Slot 4",
+        .five: "Slot 5", .six: "Slot 6", .seven: "Slot 7", .eight: "Slot 8",
+        .nine: "Slot 9", .ten: "Slot 10", .eleven: "Slot 11", .twelve: "Slot 12"
     ]
 }
 
 struct SelectKeepNoteIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Заметка Google Keep"
-    static var description = IntentDescription("Выберите слот из приложения Keep Widgets.")
+    static var title: LocalizedStringResource = "Google Keep Note"
+    static var description = IntentDescription("Choose a slot from the Keep Widgets app.")
 
-    @Parameter(title: "Слот")
+    @Parameter(title: "Slot")
     var slot: KeepSlot
 
     init() {
@@ -57,8 +57,8 @@ struct KeepWidgetProvider: AppIntentTimelineProvider {
             slot: 1,
             note: KeepWidgetNote(
                 slot: 1,
-                title: "Заметка Google Keep",
-                body: "Текст выбранной заметки появится здесь.",
+                title: "Google Keep Note",
+                body: "The selected note will appear here.",
                 url: "https://keep.google.com/",
                 color: "#FFF1A8",
                 updatedAt: .now
@@ -119,7 +119,7 @@ struct KeepWidgetView: View {
                     .padding(.vertical, 3)
                     .background(Capsule().fill(.black.opacity(0.1)))
             }
-            Text(note.body.isEmpty ? "Пустая заметка" : note.body)
+            Text(note.body.isEmpty ? "Empty note" : note.body)
                 .font(family == .systemSmall ? .callout : .body)
                 .lineLimit(lineLimit)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -143,7 +143,7 @@ struct KeepWidgetView: View {
                 Image(systemName: "lightbulb")
                 Text("Keep \(entry.slot)").font(.headline)
             }
-            Text("Откройте Keep Widgets и назначьте заметку этому слоту.")
+            Text("Open Keep Widgets and assign a note to this slot.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
             Spacer()
@@ -193,8 +193,8 @@ struct KeepNoteWidget: Widget {
         AppIntentConfiguration(kind: "KeepNoteWidget", intent: SelectKeepNoteIntent.self, provider: KeepWidgetProvider()) { entry in
             KeepWidgetView(entry: entry)
         }
-        .configurationDisplayName("Заметка Google Keep")
-        .description("Отдельная заметка из выбранного слота Keep Widgets.")
+        .configurationDisplayName("Google Keep Note")
+        .description("A note from the selected Keep Widgets slot.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

@@ -1,31 +1,41 @@
-# Keep Widgets для macOS
+# Keep Widgets for macOS
 
-![Иконка Keep Widgets](Artwork/KeepWidgetsIcon.png)
+![Keep Widgets icon](Artwork/KeepWidgetsIcon.png)
 
-Нативный WidgetKit-виджет для заметок Google Keep. Один и тот же виджет можно добавить на Рабочий стол много раз; у каждой копии отдельно выбирается слот 1–12.
+Native WidgetKit widgets for Google Keep notes. Add as many copies as you need to the desktop and assign a different slot (1–12) to each widget.
 
-## Как пользоваться
+## Features
 
-1. Запустите `Keep Widgets.app` и заполните слоты вручную либо импортируйте заметки из Google Keep через расширение Brave.
-2. Нажмите Control-клик по пустому месту Рабочего стола → **Изменить виджеты…**.
-3. Выберите **Keep Widgets**, затем перетащите малый, средний или большой виджет на Рабочий стол.
-4. Чтобы показать другую заметку: Control-клик по виджету → **Изменить виджет «Заметка Google Keep»…** → выберите слот.
-5. Повторите добавление для каждой нужной заметки.
+- Native small, medium, and large macOS widgets
+- 12 independent note slots
+- Manual note editing in the macOS app
+- One-click import from an open Google Keep note in Brave
+- Local-only storage with no third-party server
 
-## Импорт из Google Keep в Brave
+## Usage
 
-Локальное расширение добавляет на `keep.google.com` кнопку **На рабочий стол**. Оно читает только открытую вами заметку и отправляет выбранный текст локальному приложению на `127.0.0.1:43821`; данные не отправляются на сторонний сервер.
+1. Launch `Keep Widgets.app` and fill the slots manually, or import notes from Google Keep with the Brave extension.
+2. Control-click an empty area of the desktop and choose **Edit Widgets…**.
+3. Select **Keep Widgets**, then drag a small, medium, or large widget onto the desktop.
+4. To display a different note, Control-click the widget, choose **Edit “Google Keep Note”…**, and select a slot.
+5. Repeat for every note you want to keep visible.
 
-1. Откройте `brave://extensions`.
-2. Включите **Режим разработчика**.
-3. Нажмите **Загрузить распакованное расширение**.
-4. Выберите папку `Brave Extension` из этого проекта или из ресурсов установленного приложения.
-5. Откройте заметку в Keep, нажмите **На рабочий стол** и выберите слот 1–12.
+## Import from Google Keep in Brave
 
-Приложение `Keep Widgets` должно быть запущено во время импорта. Уже сохранённые виджеты продолжают отображаться без открытого Brave.
+The local extension adds an **Add to Desktop** button to `keep.google.com`. It reads only the note you currently have open and sends the selected content directly to the macOS app at `127.0.0.1:43821`. No data is sent to a third-party server.
 
-Заметки хранятся локально в `/Users/Shared/KeepWidgets/notes.json` и не отправляются на сторонний сервер.
+1. Open `brave://extensions`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select the `Brave Extension` folder from this project or from the installed app's Resources folder.
+5. Open a note in Google Keep, click **Add to Desktop**, and choose a slot from 1 to 12.
 
-## Сборка
+`Keep Widgets.app` must be running while importing. Saved widgets continue to work without Brave or the app being open.
 
-Откройте `KeepWidgets.xcodeproj` в Xcode, выберите свою Personal Team и соберите схему **Keep Widgets**. Для появления расширения в системной галерее нужна корректная подпись Apple Development.
+Notes are stored locally in `/Users/Shared/KeepWidgets/notes.json`.
+
+## Build
+
+Open `KeepWidgets.xcodeproj` in Xcode, select your Personal Team, and build the **Keep Widgets** scheme. A valid Apple Development signature is required for the widget extension to appear in the macOS widget gallery.
+
+Requires macOS 14 or later and Xcode 15 or later.
