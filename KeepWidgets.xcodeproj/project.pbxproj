@@ -1,0 +1,166 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* Host.swift */; };
+		A10000000000000000000002 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* Widget.swift */; };
+		A10000000000000000000003 /* KeepWidgetsExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* KeepWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A10000000000000000000004 /* Brave Extension in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* Brave Extension */; };
+		A10000000000000000000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* Assets.xcassets */; };
+		A10000000000000000000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A30000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A40000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A50000000000000000000002;
+			remoteInfo = KeepWidgetsExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A60000000000000000000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (A10000000000000000000003 /* KeepWidgetsExtension.appex in Embed App Extensions */, );
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* Host.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		A20000000000000000000004 /* AppInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppInfo.plist; sourceTree = "<group>"; };
+		A20000000000000000000005 /* WidgetInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WidgetInfo.plist; sourceTree = "<group>"; };
+		A20000000000000000000006 /* Brave Extension */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Brave Extension"; sourceTree = "<group>"; };
+		A20000000000000000000007 /* Keep Widgets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Keep Widgets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000008 /* KeepWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KeepWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000009 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A70000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		A70000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A80000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A80000000000000000000002 /* Source */,
+				A20000000000000000000006 /* Brave Extension */,
+				A80000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A80000000000000000000002 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* Host.swift */,
+				A20000000000000000000002 /* Widget.swift */,
+				A20000000000000000000003 /* Widget.entitlements */,
+				A20000000000000000000004 /* AppInfo.plist */,
+				A20000000000000000000005 /* WidgetInfo.plist */,
+				A20000000000000000000009 /* Assets.xcassets */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		A80000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (A20000000000000000000007 /* Keep Widgets.app */, A20000000000000000000008 /* KeepWidgetsExtension.appex */, );
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000000000000000000001 /* Keep Widgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000001 /* Build configuration list for PBXNativeTarget "Keep Widgets" */;
+			buildPhases = (AB0000000000000000000001 /* Sources */, A70000000000000000000001 /* Frameworks */, AC0000000000000000000001 /* Resources */, A60000000000000000000001 /* Embed App Extensions */, );
+			buildRules = ();
+			dependencies = (AD0000000000000000000001 /* PBXTargetDependency */, );
+			name = "Keep Widgets";
+			productName = KeepWidgets;
+			productReference = A20000000000000000000007 /* Keep Widgets.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A50000000000000000000002 /* KeepWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000002 /* Build configuration list for PBXNativeTarget "KeepWidgetsExtension" */;
+			buildPhases = (AB0000000000000000000002 /* Sources */, A70000000000000000000002 /* Frameworks */, AC0000000000000000000002 /* Resources */, );
+			buildRules = ();
+			dependencies = ();
+			name = KeepWidgetsExtension;
+			productName = KeepWidgetsExtension;
+			productReference = A20000000000000000000008 /* KeepWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A40000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					A50000000000000000000001 = {CreatedOnToolsVersion = 26.6; };
+					A50000000000000000000002 = {CreatedOnToolsVersion = 26.6; };
+				};
+			};
+			buildConfigurationList = AA0000000000000000000003 /* Build configuration list for PBXProject "KeepWidgets" */;
+			developmentRegion = ru;
+			hasScannedForEncodings = 0;
+			knownRegions = (Base, ru, en, );
+			mainGroup = A80000000000000000000001;
+			productRefGroup = A80000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (A50000000000000000000001 /* Keep Widgets */, A50000000000000000000002 /* KeepWidgetsExtension */, );
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC0000000000000000000001 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000004 /* Brave Extension in Resources */, A10000000000000000000005 /* Assets.xcassets in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		AC0000000000000000000002 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000006 /* Assets.xcassets in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB0000000000000000000001 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001 /* Host.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		AB0000000000000000000002 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000002 /* Widget.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AD0000000000000000000001 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = A50000000000000000000002 /* KeepWidgetsExtension */; targetProxy = A30000000000000000000001 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AE0000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; INFOPLIST_FILE = Source/AppInfo.plist; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = local.eduard.keepwidgets; PRODUCT_NAME = "Keep Widgets"; SDKROOT = macosx; SWIFT_VERSION = 5.0; }; name = Debug; };
+		AE0000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; INFOPLIST_FILE = Source/AppInfo.plist; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = local.eduard.keepwidgets; PRODUCT_NAME = "Keep Widgets"; SDKROOT = macosx; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.0; }; name = Release; };
+		AE0000000000000000000003 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground; CODE_SIGN_ENTITLEMENTS = Source/Widget.entitlements; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; ENABLE_APP_SANDBOX = YES; INFOPLIST_FILE = Source/WidgetInfo.plist; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = local.eduard.keepwidgets.widget; PRODUCT_NAME = KeepWidgetsExtension; SDKROOT = macosx; SKIP_INSTALL = YES; SWIFT_VERSION = 5.0; }; name = Debug; };
+		AE0000000000000000000004 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground; CODE_SIGN_ENTITLEMENTS = Source/Widget.entitlements; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; ENABLE_APP_SANDBOX = YES; INFOPLIST_FILE = Source/WidgetInfo.plist; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = local.eduard.keepwidgets.widget; PRODUCT_NAME = KeepWidgetsExtension; SDKROOT = macosx; SKIP_INSTALL = YES; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.0; }; name = Release; };
+		AE0000000000000000000005 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_STRICT_OBJC_MSGSEND = YES; GCC_C_LANGUAGE_STANDARD = gnu17; SDKROOT = macosx; }; name = Debug; };
+		AE0000000000000000000006 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_NS_ASSERTIONS = NO; ENABLE_STRICT_OBJC_MSGSEND = YES; GCC_C_LANGUAGE_STANDARD = gnu17; SDKROOT = macosx; VALIDATE_PRODUCT = YES; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA0000000000000000000001 /* Build configuration list for PBXNativeTarget "Keep Widgets" */ = {isa = XCConfigurationList; buildConfigurations = (AE0000000000000000000001 /* Debug */, AE0000000000000000000002 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		AA0000000000000000000002 /* Build configuration list for PBXNativeTarget "KeepWidgetsExtension" */ = {isa = XCConfigurationList; buildConfigurations = (AE0000000000000000000003 /* Debug */, AE0000000000000000000004 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		AA0000000000000000000003 /* Build configuration list for PBXProject "KeepWidgets" */ = {isa = XCConfigurationList; buildConfigurations = (AE0000000000000000000005 /* Debug */, AE0000000000000000000006 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = A40000000000000000000001 /* Project object */;
+}

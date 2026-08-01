@@ -1,0 +1,12 @@
+.DS_Store
+DerivedData/
+build/
+*.dmg
+*.xcarchive
+*.ipa
+*.app
+*.appex
+*.dSYM
+xcuserdata/
+*.xcuserstate
+Artwork/*-chroma.png
