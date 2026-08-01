@@ -90,6 +90,8 @@ struct KeepWidgetProvider: AppIntentTimelineProvider {
 
 struct KeepWidgetView: View {
     @Environment(\.widgetFamily) private var family
+    @Environment(\.widgetRenderingMode) private var renderingMode
+    @Environment(\.colorScheme) private var colorScheme
     let entry: KeepWidgetEntry
 
     var body: some View {
@@ -108,7 +110,7 @@ struct KeepWidgetView: View {
         VStack(alignment: .leading, spacing: family == .systemSmall ? 6 : 9) {
             HStack(spacing: 6) {
                 Image(systemName: "lightbulb.fill")
-                    .foregroundStyle(.black.opacity(0.7))
+                    .foregroundStyle(primaryForeground)
                 Text(note.title)
                     .font(family == .systemSmall ? .headline : .title3.bold())
                     .lineLimit(family == .systemSmall ? 2 : 1)
@@ -117,7 +119,7 @@ struct KeepWidgetView: View {
                     .font(.caption2.bold().monospacedDigit())
                     .padding(.horizontal, 6)
                     .padding(.vertical, 3)
-                    .background(Capsule().fill(.black.opacity(0.1)))
+                    .background(Capsule().fill(badgeBackground))
             }
             Text(note.body.isEmpty ? "Empty note" : note.body)
                 .font(family == .systemSmall ? .callout : .body)
@@ -130,10 +132,10 @@ struct KeepWidgetView: View {
                     Text(note.updatedAt, style: .relative)
                 }
                 .font(.caption2)
-                .foregroundStyle(.black.opacity(0.55))
+                .foregroundStyle(secondaryForeground)
             }
         }
-        .foregroundStyle(.black.opacity(0.88))
+        .foregroundStyle(primaryForeground)
         .padding(family == .systemSmall ? 12 : 16)
     }
 
@@ -165,6 +167,28 @@ struct KeepWidgetView: View {
         entry.note.map { Color(widgetHex: $0.color) } ?? Color.gray.opacity(0.14)
     }
 
+    private var usesLightForeground: Bool {
+        if renderingMode != .fullColor {
+            return colorScheme == .dark
+        }
+        guard let color = entry.note?.color else {
+            return colorScheme == .dark
+        }
+        return Color.requiresLightForeground(widgetHex: color)
+    }
+
+    private var primaryForeground: Color {
+        usesLightForeground ? .white.opacity(0.94) : .black.opacity(0.88)
+    }
+
+    private var secondaryForeground: Color {
+        usesLightForeground ? .white.opacity(0.72) : .black.opacity(0.55)
+    }
+
+    private var badgeBackground: Color {
+        usesLightForeground ? .white.opacity(0.14) : .black.opacity(0.1)
+    }
+
     private var widgetURL: URL? {
         guard let raw = entry.note?.url, let url = URL(string: raw), url.host == "keep.google.com" else { return nil }
         return url
@@ -172,6 +196,19 @@ struct KeepWidgetView: View {
 }
 
 extension Color {
+    static func requiresLightForeground(widgetHex: String) -> Bool {
+        let value = widgetHex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var number: UInt64 = 0
+        guard value.count == 6, Scanner(string: value).scanHexInt64(&number) else {
+            return false
+        }
+        let red = Double((number >> 16) & 0xFF) / 255
+        let green = Double((number >> 8) & 0xFF) / 255
+        let blue = Double(number & 0xFF) / 255
+        let perceivedBrightness = (red * 0.299) + (green * 0.587) + (blue * 0.114)
+        return perceivedBrightness < 0.55
+    }
+
     init(widgetHex: String) {
         let value = widgetHex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var number: UInt64 = 0
