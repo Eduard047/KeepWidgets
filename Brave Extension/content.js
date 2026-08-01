@@ -82,18 +82,32 @@
     return rect.width > 0 && rect.height > 0 && style.visibility !== "hidden" && style.display !== "none";
   }
 
+  const editableSelector = '[contenteditable], textarea, input, [role="textbox"], [aria-multiline="true"]';
+
+  function editableElementsWithin(root) {
+    const elements = [];
+    if (root instanceof Element && root.matches(editableSelector)) elements.push(root);
+    elements.push(...root.querySelectorAll(editableSelector));
+    return [...new Set(elements)].filter(visible);
+  }
+
   function findOpenNote() {
     const dialogs = [...document.querySelectorAll('[role="dialog"]')].filter(visible);
-    if (dialogs.length) return dialogs.at(-1);
+    const noteDialog = dialogs.reverse().find(dialog => editableElementsWithin(dialog).length >= 2);
+    if (noteDialog) return noteDialog;
 
     if (location.hash.includes("NOTE")) {
-      const editables = [...document.querySelectorAll('[contenteditable="true"]')].filter(visible);
+      const editables = editableElementsWithin(document);
       if (editables.length) {
         let node = editables.at(-1);
-        for (let i = 0; i < 8 && node?.parentElement; i += 1) {
-          if (node.getBoundingClientRect().width > 300 && node.getBoundingClientRect().height > 150) return node;
+        let fallback = node;
+        for (let i = 0; i < 12 && node; i += 1) {
+          const rect = node.getBoundingClientRect();
+          if (rect.width > 300 && rect.height > 150) fallback = node;
+          if (editableElementsWithin(node).length >= 2 && rect.width > 300) return node;
           node = node.parentElement;
         }
+        return fallback;
       }
     }
     return null;
@@ -109,12 +123,11 @@
   }
 
   function labelOf(element) {
-    return `${element.getAttribute("aria-label") || ""} ${element.getAttribute("data-placeholder") || ""}`.toLowerCase();
+    return `${element.getAttribute("aria-label") || ""} ${element.getAttribute("data-placeholder") || ""} ${element.getAttribute("placeholder") || ""}`.toLowerCase();
   }
 
   function extractNote(root) {
-    const editables = [...root.querySelectorAll('[contenteditable="true"], textarea, input')]
-      .filter(visible)
+    const editables = editableElementsWithin(root)
       .map(element => ({
         element,
         label: labelOf(element),

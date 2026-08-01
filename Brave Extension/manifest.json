@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Keep Widgets Importer",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Sends the open Google Keep note to local macOS widgets.",
   "permissions": [],
   "host_permissions": [
